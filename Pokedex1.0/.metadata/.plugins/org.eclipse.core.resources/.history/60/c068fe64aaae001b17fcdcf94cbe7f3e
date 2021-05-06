@@ -1,0 +1,244 @@
+package Pokedex;
+
+import org.junit.Test;
+
+import domain.Evolution;
+import domain.Pokemon;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PokedexTest {
+
+	@Test
+	public void testsThatAllPokemonsAreListed() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		
+		//Assert
+		for(Pokemon p: pokedex.getPokemons()) {
+			assertNotNull(p);
+		}
+	}
+	
+	@Test
+	public void testsThatASpecificPokemonIsRetrievedCorrectly() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		Pokemon p;
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		p = PokedexTest.searchForSpecificPokemon("Squirtle", pokedex);
+		
+		//Assert
+		assertEquals(p.getName(), "Squirtle");
+		assertEquals(p.getType(), eType.WATER);
+		assertEquals(p.getLevel(), 3);
+	}
+	
+	@Test
+	public void testsThatASpecificEvolutionIsRetrievedCorrectly() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		Evolution e;
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		e = PokedexTest.searchForSpecificEvolution("Charizard", pokedex);
+		
+		//Assert
+		assertEquals(e.getName(), "Charizard");
+		assertEquals(e.getType(), eType.FIRE);
+		assertEquals(e.getLevelToEvolution(), 36);
+	}
+	
+	@Test
+	public void testsThatASpecificPokemonsAbilitieIsRetrievedCorrectly() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		List<Abilitie> pokAbilities = new ArrayList<Abilitie>();
+		Pokemon pok;
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		pok = PokedexTest.searchForSpecificPokemon("Pichu", pokedex);
+		pokAbilities = pok.getAbilities();
+		
+		//Assert
+		assertEquals(pokAbilities.get(0).getName(), "Electric Circuit");
+		assertEquals(pokAbilities.get(0).getType(), eType.ELECTRIC);
+	}
+	
+	@Test
+	public void testsThatASpecificPokemonsEvolutionIsRetrievedAndMatchedCorrectly() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		Pokemon pok;
+		Evolution evo = null;
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		pok = PokedexTest.searchForSpecificPokemon("Pichu", pokedex);
+		
+		for(Evolution e: pokedex.getEvolutions()) {
+			if(e.getPokID() == pok.getPokID() && e.getEvoID() == 2) {
+				evo = e;
+			}
+		}
+		
+		//Assert
+		assertNotNull(evo);
+		assertEquals(evo.getName(), "Raichu");
+		assertEquals(evo.getType(), eType.ELECTRIC);
+	}
+	
+	@Test
+	public void testsThatAllEvolutionsFromASpecificPokemonAreRetrievedCorrecty() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		Pokemon pok;
+		List<Evolution> specificPokemonsEvolutions = new ArrayList<Evolution>();
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex = new Pokedex(pokemons, evolutions);
+		pok = PokedexTest.searchForSpecificPokemon("Squirtle", pokedex);
+		
+		for(Evolution e: pokedex.getEvolutions()) {
+			if(e.getPokID() == pok.getPokID()) {
+				specificPokemonsEvolutions.add(e);
+			}
+		}
+		
+		//Assert
+		//first Evo
+		assertEquals(specificPokemonsEvolutions.get(0).getName(), "Wartortle");
+		assertEquals(specificPokemonsEvolutions.get(0).getType(), eType.WATER);
+		assertEquals(specificPokemonsEvolutions.get(0).getLevelToEvolution(), 16);
+		//second Evo
+		assertEquals(specificPokemonsEvolutions.get(1).getName(), "Blastoise");
+		assertEquals(specificPokemonsEvolutions.get(1).getType(), eType.WATER);
+		assertEquals(specificPokemonsEvolutions.get(1).getLevelToEvolution(), 36);
+	}
+	
+	@Test
+	public void testsThatAPokemonIsCorrectlyAddedAndRetrievedToTheDatabase() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		Pokemon pok;
+		Pokemon pokemonAdded;
+		List<Abilitie> abilities = new ArrayList<Abilitie>();
+		Abilitie ab;
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex1 = new Pokedex(pokemons, evolutions);
+		
+		ab = new Abilitie("Tackle", eType.ICE);
+		abilities.add(ab);
+		
+		
+		pok = new Pokemon("Swinub", eType.ICE, 12, abilities);
+		pokedex1.getPokemons().add(pok); //adding to pokedex
+		
+		pokedex1.writeXml(); //retrieving to db
+		
+		pokemons = Pokedex.readPokemonXml(); //reading db again
+		evolutions = Pokedex.readEvolutionXml(); //reading db again
+		Pokedex pokedex2 = new Pokedex(pokemons, evolutions);
+		
+		pokemonAdded = PokedexTest.searchForSpecificPokemon("Swinub", pokedex2);
+		//Assert
+		assertEquals(pokemonAdded.getName(), pok.getName());
+		assertEquals(pokemonAdded.getType(), pok.getType());
+		assertEquals(pokemonAdded.getLevel(), pok.getLevel());
+	}
+	
+	@Test
+	public void testsThatAPokemonCanBeCorrectlyModified() {
+		
+		//Arrange
+		List<Evolution> evolutions = new ArrayList<Evolution>();
+		List<Pokemon> pokemons = new ArrayList<Pokemon>();
+		
+		//Act
+		pokemons = Pokedex.readPokemonXml();
+		evolutions = Pokedex.readEvolutionXml();
+		Pokedex pokedex1 = new Pokedex(pokemons, evolutions);
+		
+		pokedex1.getPokemons().get(0).setName("Charmanderr");//adding an extra R
+		pokedex1.getPokemons().get(0).setType(eType.NEUTER);//changing type to a neutral type
+		pokedex1.getPokemons().get(0).setLevel(4);//adding one more level
+		
+		
+		pokedex1.writeXml(); //retrieving to db
+		
+		pokemons = Pokedex.readPokemonXml(); //reading db again
+		evolutions = Pokedex.readEvolutionXml(); //reading db again
+		Pokedex pokedex2 = new Pokedex(pokemons, evolutions);
+		
+		//Assert
+		assertEquals(pokedex2.getPokemons().get(0).getName(), "Charmanderr");
+		assertEquals(pokedex2.getPokemons().get(0).getType(), eType.NEUTER);
+		assertEquals(pokedex2.getPokemons().get(0).getLevel(), 4);
+	}
+	
+	static Pokemon searchForSpecificPokemon(String name, Pokedex pokedex) {
+		
+		Pokemon pokemonFound = null;
+		for(Pokemon p: pokedex.getPokemons()) {
+			if(p.getName().equalsIgnoreCase(name)) {
+				pokemonFound = p;
+			}
+		}
+		
+		return pokemonFound;
+	}
+	
+	static Evolution searchForSpecificEvolution(String name, Pokedex pokedex) {
+		
+		Evolution evolutionFound = null;
+		
+		
+		for(Evolution e: pokedex.getEvolutions()) {
+			if(e.getName().equalsIgnoreCase(name)) {
+				evolutionFound = e;
+			}
+		}
+		
+		return evolutionFound;
+	}
+}

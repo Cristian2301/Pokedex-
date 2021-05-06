@@ -1,0 +1,9 @@
+package Exceptions;
+
+public class MaxEvolutionsException extends Exception {
+
+	public MaxEvolutionsException() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

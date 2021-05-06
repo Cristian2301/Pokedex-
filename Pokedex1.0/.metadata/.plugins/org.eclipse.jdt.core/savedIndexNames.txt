@@ -1,0 +1,6 @@
+INDEX VERSION 1.131+C:\Users\Guido\Desktop\Certant Codigo\Pokedex1.0\.metadata\.plugins\org.eclipse.jdt.core
+1525117729.index
+564574233.index
+1783471828.index
+1714714025.index
+1447831973.index

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;Pokedex.Pokedex.readXml()&apos; to &apos;writeXml&apos;&#x0D;&#x0A;- Original project: &apos;Pokedex&apos;&#x0D;&#x0A;- Original element: &apos;Pokedex.Pokedex.readXml()&apos;&#x0D;&#x0A;- Renamed element: &apos;Pokedex.Pokedex.writeXml()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;readXml&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;Pokedex{Pokedex.java[Pokedex~readXml" name="writeXml" references="true" stamp="1618238527806" version="1.0"/>
+</session>

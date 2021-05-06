@@ -1,0 +1,15 @@
+package Pokedex;
+
+import java.util.List;
+
+public interface Files {
+	
+	public abstract List<Pokemon> readPokemon();
+	
+	public abstract List<Evolution> readEvolution();
+
+	public abstract boolean writePok(String fileName, List<Pokemon> pokList);
+	
+	public abstract boolean writeEvo(String fileName, List<Evolution> evoList);
+
+}

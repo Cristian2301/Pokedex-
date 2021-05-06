@@ -1,0 +1,9 @@
+package Exceptions;
+
+public class EvolutionAlreadyExistsException {
+
+	public EvolutionAlreadyExistsException() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

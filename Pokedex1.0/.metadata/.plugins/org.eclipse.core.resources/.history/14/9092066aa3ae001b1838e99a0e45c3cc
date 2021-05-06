@@ -1,0 +1,45 @@
+package Pokedex;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+
+public class FileHandler implements Files {
+
+	private Gson json;
+	
+	public FileHandler() {
+		this.json = new Gson();
+	}
+	
+	@Override
+	public  List<Pokemon> readPokemon(){
+		
+	}
+	
+	@Override
+	public  List<Evolution> readEvolution(){
+		
+		List<Evolution> evos = new ArrayList();
+		
+		
+	}
+	
+	@Override
+	public  boolean writePok(String fileName, List<Pokemon> pokList) {
+		
+		String response = json.toJson(pokList);
+		return true;
+	}
+	
+	@Override
+	public boolean writeEvo(String fileName, List<Evolution> evoList) {
+		
+		return true;
+	}
+
+	
+	
+}
