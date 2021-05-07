@@ -32,6 +32,10 @@ public class Pokemon {
 		return tipos;
 	}
 	
+	public void setTipos(List<String> tipos) {
+		this.tipos = tipos;
+	}
+	
 	public void agregarTipo(String tipo) {
 	/*agrega el tipo "tipo" a la lista de tipos.*/
 		this.tipos.add(tipo);

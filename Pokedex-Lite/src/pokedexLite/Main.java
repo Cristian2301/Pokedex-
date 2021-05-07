@@ -1,45 +1,41 @@
 package pokedexLite;
 
-import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
-	public static void main(String[] args) {
-		Integer opcion;
-		Scanner sc = new Scanner(System.in);
-		Aplicacion aplicacion = new Aplicacion();
+	private Aplicacion aplicacion;
+	private Pokemon pokemon1 = new Pokemon("Charmander", 2);
+	private Pokemon pokemon2 = new Pokemon("Squirtle", 1);
+	private Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
+	private Pokemon pokemon4 = new Pokemon("Chikorita", 6);
+	private Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);
+	private Pokemon pokemon6 = new Pokemon("Totodile", 2);
+	private Pokemon pokemon8 = new Pokemon("", 2);
+	private Pokemon pokemon9 = new Pokemon("", 2);
+	private Pokemon pokemon10 = new Pokemon("", 2);
+	private List <Evolucion> evolucionesPokemon1 = new ArrayList<Evolucion>();
+	private List <Evolucion> evolucionesPokemon4 = new ArrayList<Evolucion>();
+	private Evolucion evolucion1Charmander = new Evolucion("Charmeleon", 6);
+	private Evolucion evolucion2Charmander = new Evolucion("Charizard", 10);
+	private Evolucion evolucion1Chikorita = new Evolucion("Bayleef", 6);
+	private Evolucion evolucion2Chikorita = new Evolucion("Meganium", 10);
+	
+	public void agregarEvolucionesValida() {
 		
-		System.out.println("Ingrese la opcion 1 para mostrar un pokemon");
-        System.out.println("Ingrese la opcion 2 para agregar un pokemon Nuevo");
-        System.out.println("Ingrese la opcion 3 para modificar un pokemon ya existente");
-        System.out.println("Ingrese la opcion 4 para eliminar un pokemon ya existente");
-        System.out.println("Ingrese la opcion 5 para salir del programa");
-        
-        System.out.println("Ingrese una opcion:");
-        opcion = sc.nextInt();
-        
-        System.out.println("Ingrese el nombre del pokemon:");
-        String nombrePokemon = sc.nextLine();
-        
-        
-        
-        // Declarar el objeto e inicializar con
-        // el objeto de entrada estándar predefinido
-        
-        // entrada de una cadena
-        /*String name = sc.nextLine();
-        // entrada de un carácter
-        char gender = sc.next().charAt(0);
-        // Entrada de datos numéricos
-        // byte, short y float
-        int age = sc.nextInt();
-        long mobileNo = sc.nextLong();
-        double average = sc.nextDouble();
-        // Imprima los valores para verificar si la entrada
-        // fue obtenida correctamente.
-        System.out.println("Nombre: "+name);
-        System.out.println("Género: "+gender);
-        System.out.println("Edad: "+age);
-        System.out.println("Teléfono: "+mobileNo);
-        System.out.println("Promedio: "+average);*/
-    }
+	}
+	
+	public void agregarPokemonesValidos() {
+		pokemon1.agregarEvolucion(evolucion1Charmander);
+		pokemon1.agregarEvolucion(evolucion2Charmander);
+		aplicacion.getPokemonsValidos().add(pokemon1);
+		aplicacion.getPokemonsValidos().add(pokemon2);
+		aplicacion.getPokemonsValidos().add(pokemon3);
+		aplicacion.getPokemonsValidos().add(pokemon4);
+		aplicacion.getPokemonsValidos().add(pokemon5);
+		aplicacion.getPokemonsValidos().add(pokemon6);
+	}
+	
+	
+	
 }
