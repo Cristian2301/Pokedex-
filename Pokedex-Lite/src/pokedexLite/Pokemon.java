@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Pokemon {
+	private Integer id;
 	private String nombre;
 	private List<String> tipos;
 	private Integer nivel;
@@ -12,6 +13,7 @@ public class Pokemon {
 	
 	/*Constructor*/
 	public Pokemon(String nombre, Integer nivel) {
+		//this.id = id;
 		this.nombre = nombre;
 		this.tipos = new ArrayList<String>();
 		this.nivel = nivel;
