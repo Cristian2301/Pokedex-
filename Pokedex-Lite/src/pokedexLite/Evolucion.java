@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Evolucion {
-	private Integer idDePokemon;
 	private String nombre;
 	private List<String> tipos;
 	private Integer nivel;

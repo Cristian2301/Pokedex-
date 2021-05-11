@@ -2,16 +2,17 @@ package pokedexLite;
 
 import java.util.List;
 import java.util.Scanner;
-
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.ArrayList;
+
+import java.util.Map;
+import java.util.HashMap;
 
 public class Aplicacion {
 	//private List<Pokemon> pokemonsValidos;
 	private List<Pokemon> pokemons;
-	private List<Evolucion> evoluciones;
-	private Scanner sc = new Scanner(System.in);	
+	private Map<Pokemon, Evolucion> evolucionesValidas = new HashMap<Pokemon, Evolucion>();
+	private Scanner sc = new Scanner(System.in);
+	private StringBuilder str = new StringBuilder();
 	
 	/* Constructor */
 	public Aplicacion() {
@@ -22,7 +23,24 @@ public class Aplicacion {
 		return pokemons;
 	}
 	
-
+	public Map<Pokemon, Evolucion> getEvolucionesValidas(){
+		return evolucionesValidas;
+	}
+	
+	
+	public String mostrarPokemon() {
+		System.out.println("Ingrese el nombre del pokemon que desea que se muestre:");
+		String nombre = sc.next();
+		
+		try {
+			return this.datosPokemon(this.buscarPokemon(nombre));
+		}
+		catch (Exception e) {
+			throw new ArithmeticException("El pokemon ingresado no existe");
+		}
+	}
+	
+	
 	public void agregarPokemon() {	
 		System.out.println("Ingrese los datos del pokemon que desea agregar:");
 		
@@ -34,6 +52,7 @@ public class Aplicacion {
 		
 		System.out.println("nivel:");
 		Integer nivel = sc.nextInt();
+		
 
 		Pokemon pokemon = new Pokemon(nombre, nivel);
 
@@ -48,22 +67,17 @@ public class Aplicacion {
 		}
 		this.getPokemons().add(pokemon);
 		
-/*		Boolean ingresarTipos = true;
-		while (ingresarTipos) {
-			System.out.println("Si desea agregar otro tipo presione 1, sino presione 2");
-			opcion = sc.nextInt();
-			if (opcion == 1) {
-				System.out.println("Tipo:");
-				tipo = sc.next();
-				pokemon.agregarTipo(tipo);
-			}
-			else {
-				ingresarTipos = false;
-			}
-		}*/
 	}
 			
 		
+	public void modificarPokemon() {
+		
+	}
+	
+	
+	public void eliminarPokemon() {
+		
+	}
 		
 	//	System.out.println("Desea evolucionar el pokemon? (si / no)");
 	//	this.evolucionarPokemon(pokemon);
@@ -92,8 +106,17 @@ public class Aplicacion {
 		return this.buscarPokemon(nombre).getTipos();
 	}
 	
-	public void evolucionarPokemon(Pokemon pokemon) {
-		pokemon.agregarEvolucion(this.buscarPokemon(pokemon.getNombre()).getEvoluciones().get(0));
+	public String datosPokemon(Pokemon pokemon) {
+		str.append("*POKEMON " + pokemon.getNombre().toUpperCase()+"*\n");
+		str.append("Tipos:" + pokemon.getTipos()+"\n");
+		str.append("Nivel:" + pokemon.getNivel()+"\n");
+		str.append("Evoluciones:" + pokemon.getEvoluciones()+"\n");
+		str.append("Habilidades:" + pokemon.getHabilidades()+"\n");
+		return str.toString();
 	}
+	
+/*	public void evolucionarPokemon(Pokemon pokemon) {
+		pokemon.agregarEvolucion(this.
+	}*/
 	
 }
