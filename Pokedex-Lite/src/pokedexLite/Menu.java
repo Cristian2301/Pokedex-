@@ -14,28 +14,27 @@ public class Menu {
 		Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
 		Pokemon pokemon4 = new Pokemon("Chikorita", 6);
 		Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);
-		Pokemon pokemon6 = new Pokemon("Totodile", 2);
+		/*Pokemon pokemon6 = new Pokemon("Totodile", 2);
 		Pokemon pokemon8 = new Pokemon("Treecko", 2);
 		Pokemon pokemon9 = new Pokemon("Torchic", 2);
-		Pokemon pokemon10 = new Pokemon("Turtwig", 2);
-		Evolucion evolucion1Charmander = new Evolucion("Charmeleon", 6);
-		Evolucion evolucion2Charmander = new Evolucion("Charizard", 10);
-		Evolucion evolucion1Chikorita = new Evolucion("Bayleef", 6);
-		Evolucion evolucion2Chikorita = new Evolucion("Meganium", 10);
-		//Evolucion evolucion2Chikorita = new Evolucion("Meganium", 10);
+		Pokemon pokemon10 = new Pokemon("Turtwig", 2);*/
+		Evolucion evolucion1Charmander = new Evolucion("Charmeleon", 16);
+		Evolucion evolucion2Charmander = new Evolucion("Charizard", 36);
+		Evolucion evolucion1Squirtle = new Evolucion("Wartortle", 16);
+		Evolucion evolucion2Squirtle = new Evolucion("Blastoise", 36);
+		Evolucion evolucion1Bulbasaur = new Evolucion("Ivysaur", 16);
+		Evolucion evolucion2Bulbasaur = new Evolucion("Venusaur", 32);
+		Evolucion evolucion1Chikorita = new Evolucion("Bayleef", 16);
+		Evolucion evolucion2Chikorita = new Evolucion("Meganium", 32);
+		Evolucion evolucion1Cyndaquil = new Evolucion("Quilava", 14);
+		Evolucion evolucion2Cyndaquil = new Evolucion("Typhlosion", 36);
+	//	List<Evolucion> evoluciones = Arrays.asList(evolucion1Charmander, evolucion1Charmander);
 		
-/*		aplicacion.getEvolucionesValidas().put("Charmander", "Charmeleon");
-		aplicacion.getEvolucionesValidas().put("Charmander", "Charizard");
-		aplicacion.getEvolucionesValidas().put("Chikorita", "Bayleef");
-		aplicacion.getEvolucionesValidas().put("Chikorita", "Meganium");
-		aplicacion.getEvolucionesValidas().put("Bulbasaur", "Ivysaur");
-		aplicacion.getEvolucionesValidas().put("Cyndaquil", "Quilava");
-		aplicacion.getEvolucionesValidas().put("Cyndaquil", "Typhlosion");
-		aplicacion.getEvolucionesValidas().put("Totodile", "Croconaw");
-		aplicacion.getEvolucionesValidas().put("Totodile", "Feraligatr");
-		aplicacion.getEvolucionesValidas().put("Treecko", "Grovyle");
-		aplicacion.getEvolucionesValidas().put("Treecko", "Sceptile");*/
-		
+		aplicacion.getEvolucionesValidas().put(pokemon1, (ArrayList<Evolucion>) Arrays.asList(evolucion1Charmander, evolucion2Charmander));
+		aplicacion.getEvolucionesValidas().put(pokemon2, (ArrayList<Evolucion>) Arrays.asList(evolucion1Squirtle, evolucion2Squirtle));
+		aplicacion.getEvolucionesValidas().put(pokemon3, (ArrayList<Evolucion>) Arrays.asList(evolucion1Bulbasaur, evolucion2Bulbasaur));
+		aplicacion.getEvolucionesValidas().put(pokemon4, (ArrayList<Evolucion>) Arrays.asList(evolucion1Chikorita, evolucion2Chikorita));
+		aplicacion.getEvolucionesValidas().put(pokemon5, (ArrayList<Evolucion>) Arrays.asList(evolucion1Cyndaquil, evolucion2Cyndaquil));		
 		
 		
 		Integer opcion;
@@ -48,7 +47,8 @@ public class Menu {
 	        System.out.println("Ingrese la opcion 3 para modificar un pokemon ya existente");
 	        System.out.println("Ingrese la opcion 4 para eliminar un pokemon ya existente");
 	        System.out.println("Ingrese la opcion 5 para listar todos los pokemons");
-	        System.out.println("Ingrese la opcion 6 para salir del programa");
+	        System.out.println("Ingrese la opcion 6 para evolucionar un pokemon");
+	        System.out.println("Ingrese la opcion 7 para salir del programa");
 	        System.out.println("Ingrese una opcion:");
         
 	        
@@ -91,8 +91,13 @@ public class Menu {
 				System.out.println(aplicacion.listarPokemons());
 				System.out.println("lista de pokemons");
 				break;
-				
+			
 			case 6: 
+				aplicacion.evolucionarPokemon();
+				System.out.println("Se evolucionó el pokemon");
+				break;	
+				
+			case 7: 
 				System.out.println("usted ha salido del programa");
 				System.exit(0);
 				break;	

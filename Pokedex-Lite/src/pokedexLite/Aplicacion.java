@@ -1,6 +1,7 @@
 package pokedexLite;
 
 import java.util.List;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.HashMap;
 public class Aplicacion {
 	//private List<Pokemon> pokemonsValidos;
 	private List<Pokemon> pokemons;
-	private Map<Pokemon, Evolucion> evolucionesValidas = new HashMap<Pokemon, Evolucion>();
+	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<Pokemon, ArrayList<Evolucion>>();
 	private Scanner sc = new Scanner(System.in);
 	
 	/* Constructor */
@@ -22,8 +23,8 @@ public class Aplicacion {
 		return pokemons;
 	}
 	
-	public Map<Pokemon, Evolucion> getEvolucionesValidas(){
-		return evolucionesValidas;
+	public Map<Pokemon, ArrayList<Evolucion>> getPokemonsYEvoluciones(){
+		return pokemonsYEvoluciones;
 	}
 	
 	
@@ -120,11 +121,33 @@ public class Aplicacion {
 	
 	
 	public String listarPokemons() {
-		String datos = "";
+		StringBuilder strPokemons = new StringBuilder();
 		for (Pokemon p: this.getPokemons()) {
-			datos.concat(this.datosPokemon(p));
+			strPokemons.append(this.datosPokemon(p)+"\n");
 		}
-		return datos;
+		return strPokemons.toString();
+	}
+	
+	
+	public void evolucionarPokemon() {
+		System.out.println("Ingrese el nombre del pokemon que desea evolucionar:");
+		String nombre = sc.next();
+		
+		try {
+		Pokemon pokemon = this.buscarPokemon(nombre);
+		
+		
+			if (pokemon.getEvoluciones().isEmpty()) {
+				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).fst());
+			}
+			else {
+				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).snd());
+			}
+			
+		}
+		catch(Exception e) {
+			throw new ArithmeticException("El pokemon ingresado no existe");
+		}
 	}
 		
 	//	System.out.println("Desea evolucionar el pokemon? (si / no)");
@@ -155,9 +178,31 @@ public class Aplicacion {
 		return pokemon.toString();
 	}
 	
-/*	public void evolucionarPokemon(Pokemon pokemon) {
-		pokemon.agregarEvolucion(this.
-	}*/
+	public Boolean existePokemon2(Pokemon pokemon) {
+		return this.getPokemonsYEvoluciones().containsKey(pokemon);
+	}
+	
+	
+	
+	public Pokemon buscarPokemon2(Pokemon pokemon) {
+		List<Pokemon> pokemons = new ArrayList<Pokemon>(this.getPokemonsYEvoluciones().keySet());
+		Integer i = 0;
+		while(!(pokemons.get(i).equals(pokemon))) {
+			i++;
+		}
+		return pokemons.get(i);
+	}
+	
+	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
+		List<Evolucion> evoluciones = new ArrayList<Evolucion>();;
+		for (Map.Entry<Pokemon, ArrayList<Evolucion>> entry : this.getPokemonsYEvoluciones().entrySet()) {
+			if(entry.getKey().equals(pokemon)) {
+				evoluciones.add(entry.getValue().get(0));
+				evoluciones.add(entry.getValue().get(1));
+			}
+		}
+		return evoluciones;
+	}
 	
 	/*	public List<String> tiposDePokemon(String nombre) {
 	return this.buscarPokemon(nombre).getTipos();
