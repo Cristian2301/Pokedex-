@@ -71,5 +71,14 @@ public class Pokemon {
 	public void setHabilidades(List<Habilidad> habilidades) {
 		this.habilidades = habilidades;
 	}
-	 
+	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("*POKEMON " + getNombre().toUpperCase()+"*\n");
+		str.append("Tipos:" + getTipos()+"\n");
+		str.append("Nivel:" + getNivel()+"\n");
+		str.append("Evoluciones:" + getEvoluciones()+"\n");
+		str.append("Habilidades:" + getHabilidades()+"\n");
+		return str.toString();
+	}
 }

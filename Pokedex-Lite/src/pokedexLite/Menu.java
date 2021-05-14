@@ -39,7 +39,7 @@ public class Menu {
 		
 		
 		Integer opcion;
-		List<Integer> opcionesValidas = Arrays.asList(1,2,3,4,5);
+		List<Integer> opcionesValidas = Arrays.asList(1,2,3,4,5,6);
 		Scanner sc = new Scanner(System.in);
 				
 		while(true) {
@@ -47,7 +47,8 @@ public class Menu {
 	        System.out.println("Ingrese la opcion 2 para agregar un pokemon Nuevo");
 	        System.out.println("Ingrese la opcion 3 para modificar un pokemon ya existente");
 	        System.out.println("Ingrese la opcion 4 para eliminar un pokemon ya existente");
-	        System.out.println("Ingrese la opcion 5 para salir del programa");
+	        System.out.println("Ingrese la opcion 5 para listar todos los pokemons");
+	        System.out.println("Ingrese la opcion 6 para salir del programa");
 	        System.out.println("Ingrese una opcion:");
         
 	        
@@ -85,8 +86,13 @@ public class Menu {
 				aplicacion.eliminarPokemon();
 				System.out.println("pokemon eliminado");
 				break;	
+					
+			case 5:
+				System.out.println(aplicacion.listarPokemons());
+				System.out.println("lista de pokemons");
+				break;
 				
-			case 5: 
+			case 6: 
 				System.out.println("usted ha salido del programa");
 				System.exit(0);
 				break;	
