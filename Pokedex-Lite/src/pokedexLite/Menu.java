@@ -8,12 +8,14 @@ import java.util.Scanner;
 public class Menu {
 	public static Aplicacion aplicacion = new Aplicacion();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Pokemon pokemon1 = new Pokemon("Charmander", 2);
 		Pokemon pokemon2 = new Pokemon("Squirtle", 1);
 		Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
 		Pokemon pokemon4 = new Pokemon("Chikorita", 6);
 		Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);
+		pokemon1.agregarTipo("fuego");
+		pokemon4.agregarTipo("agua");
 		/*Pokemon pokemon6 = new Pokemon("Totodile", 2);
 		Pokemon pokemon8 = new Pokemon("Treecko", 2);
 		Pokemon pokemon9 = new Pokemon("Torchic", 2);
@@ -28,14 +30,21 @@ public class Menu {
 		Evolucion evolucion2Chikorita = new Evolucion("Meganium", 32);
 		Evolucion evolucion1Cyndaquil = new Evolucion("Quilava", 14);
 		Evolucion evolucion2Cyndaquil = new Evolucion("Typhlosion", 36);
-	//	List<Evolucion> evoluciones = Arrays.asList(evolucion1Charmander, evolucion1Charmander);
+		ArrayList<Evolucion> evolucionesChar = new ArrayList<Evolucion>();
+		ArrayList<Evolucion> evolucionesChik = new ArrayList<Evolucion>();
+		evolucionesChar.add(evolucion1Charmander);
+		evolucionesChar.add(evolucion2Charmander);
+		evolucionesChik.add(evolucion1Chikorita);
+		evolucionesChik.add(evolucion2Chikorita);
 		
-		aplicacion.getEvolucionesValidas().put(pokemon1, (ArrayList<Evolucion>) Arrays.asList(evolucion1Charmander, evolucion2Charmander));
-		aplicacion.getEvolucionesValidas().put(pokemon2, (ArrayList<Evolucion>) Arrays.asList(evolucion1Squirtle, evolucion2Squirtle));
-		aplicacion.getEvolucionesValidas().put(pokemon3, (ArrayList<Evolucion>) Arrays.asList(evolucion1Bulbasaur, evolucion2Bulbasaur));
-		aplicacion.getEvolucionesValidas().put(pokemon4, (ArrayList<Evolucion>) Arrays.asList(evolucion1Chikorita, evolucion2Chikorita));
-		aplicacion.getEvolucionesValidas().put(pokemon5, (ArrayList<Evolucion>) Arrays.asList(evolucion1Cyndaquil, evolucion2Cyndaquil));		
-		
+/*		aplicacion.getPokemonsYEvoluciones().put(pokemon1, (ArrayList<Evolucion>) Arrays.asList(evolucion1Charmander, evolucion2Charmander));
+		aplicacion.getPokemonsYEvoluciones().put(pokemon2, (ArrayList<Evolucion>) Arrays.asList(evolucion1Squirtle, evolucion2Squirtle));
+		aplicacion.getPokemonsYEvoluciones().put(pokemon3, (ArrayList<Evolucion>) Arrays.asList(evolucion1Bulbasaur, evolucion2Bulbasaur));
+		aplicacion.getPokemonsYEvoluciones().put(pokemon4, (ArrayList<Evolucion>) Arrays.asList(evolucion1Chikorita, evolucion2Chikorita));
+		aplicacion.getPokemonsYEvoluciones().put(pokemon5, (ArrayList<Evolucion>) Arrays.asList(evolucion1Cyndaquil, evolucion2Cyndaquil));*/		
+	
+		aplicacion.getPokemonsYEvoluciones().put(pokemon1, evolucionesChar);
+		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
 		
 		Integer opcion;
 		List<Integer> opcionesValidas = Arrays.asList(1,2,3,4,5,6);
@@ -65,7 +74,7 @@ public class Menu {
 		}
     }
 	
-	public static void opciones(Integer opcion) {
+	public static void opciones(Integer opcion) throws Exception {
 		switch (opcion) {
 			case 1: 
 				System.out.println(aplicacion.mostrarPokemon());

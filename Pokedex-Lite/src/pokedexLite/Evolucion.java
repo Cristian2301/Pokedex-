@@ -27,6 +27,11 @@ public class Evolucion {
 		this.tipos = tipos;
 	}
 	
+	public void agregarTipo(String tipo) {
+		/*agrega el tipo "tipo" a la lista de tipos.*/
+			this.tipos.add(tipo);
+		}
+	
 	public Integer getNivel() {
 		return nivel;
 	}

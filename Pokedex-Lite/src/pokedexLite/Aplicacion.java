@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+import java.util.InputMismatchException;
+import java.lang.IndexOutOfBoundsException;
+
 public class Aplicacion {
 	//private List<Pokemon> pokemonsValidos;
 	private List<Pokemon> pokemons;
@@ -30,47 +33,52 @@ public class Aplicacion {
 	
 	public String mostrarPokemon() {
 		System.out.println("Ingrese el nombre del pokemon que desea que se muestre:");
-		String nombre = sc.next();
+		String nombrePokemon = sc.next();
 		
 		try {
-			return this.datosPokemon(this.buscarPokemon(nombre));
+			return this.datosPokemon(this.buscarPokemon(nombrePokemon));
 		}
 		catch (Exception e) {
-			throw new ArithmeticException("El pokemon ingresado no existe");
+			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
 		}
 	}
 	
 	
-	public void agregarPokemon() {	
+	public void agregarPokemon() throws Exception {	
 		System.out.println("Ingrese los datos del pokemon que desea agregar:");
 		
-		System.out.println("Nombre:");
-		String nombre = sc.next();
-		if (this.existePokemon(nombre)) {
-			throw new ArithmeticException("El pokemon ingresado ya existe");
+		String nombrePokemon = this.insertarNombre();
+		
+		if (this.existePokemon(nombrePokemon)) {
+			throw new Exception("El pokemon ingresado ya existe");
 		}
 		
-		System.out.println("nivel:");
-		Integer nivel = sc.nextInt();
+		Integer nivelPokemon = this.insertarNivel();
 		
-
-		Pokemon pokemon = new Pokemon(nombre, nivel);
-
-		Integer opcion = 1;
-		String tipo;
-		while (opcion == 1) {
-			System.out.println("Tipo:");
-			tipo = sc.next();
-			pokemon.agregarTipo(tipo);
-			System.out.println("Si desea agregar otro tipo presione 1, sino presione 2:");
-			opcion = sc.nextInt();
+		Pokemon pokemon = new Pokemon(nombrePokemon, nivelPokemon);
+		
+		pokemon.setTipos(this.insertarTipo());
+		//System.out.println("pokemon" + pokemon);
+		
+		//System.out.println("lista:" + this.getPokemonsYEvoluciones().get(pokemon));
+		
+		if (!this.existePokemonConEvoluciones(pokemon.getNombre())) {
+			ArrayList<Evolucion> evoluciones = new ArrayList<Evolucion>();
+			System.out.println("Está agregando un pokemon nuevo, a continuacion agregue sus respectivas evoluciones:");
+			System.out.println("primerEvolucion:");
+			evoluciones.add(this.insertarEvolucion());
+			System.out.println("SegundaEvolucion:");
+			evoluciones.add(this.insertarEvolucion());
+			
+			this.getPokemonsYEvoluciones().put(pokemon, evoluciones);	
 		}
+		
 		this.getPokemons().add(pokemon);
 		
 	}
-			
+	
 		
-	public void modificarPokemon() {
+	public void modificarPokemon() throws Exception {
 		System.out.println("Ingrese el nombre del pokemon que desea modificar:");
 		String nombre = sc.next();
 		Pokemon pokemon;
@@ -79,30 +87,21 @@ public class Aplicacion {
 			pokemon = this.buscarPokemon(nombre);
 		}
 		catch (Exception e) {
-			throw new ArithmeticException("El pokemon ingresado no existe");
+			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
 		}
 		
-		System.out.println("Nombre nuevo:");
+/*		System.out.println("Nombre nuevo:");
 		String nombreNuevo = sc.next();
 		if (this.existePokemon(nombreNuevo)) {
-			throw new ArithmeticException("El pokemon ingresado ya existe");
+			throw new Exception("El pokemon ingresado ya existe");
 		}
-		pokemon.setNombre(nombreNuevo);
+		pokemon.setNombre(nombreNuevo);*/
 		
-		System.out.println("nivel:");
-		Integer nivel = sc.nextInt();
-		pokemon.setNivel(nivel);
+		Integer nivelPokemon = this.insertarNivel();
+		pokemon.setNivel(nivelPokemon);
 
-		Integer opcion = 1;
-		String tipo;
 		pokemon.getTipos().removeAll(pokemon.getTipos());
-		while (opcion == 1) {
-			System.out.println("Tipo:");
-			tipo = sc.next();
-			pokemon.agregarTipo(tipo);
-			System.out.println("Si desea agregar otro tipo presione 1, sino presione 2:");
-			opcion = sc.nextInt();
-		}
+		pokemon.setTipos(this.insertarTipo());
 		
 	}
 	
@@ -115,7 +114,7 @@ public class Aplicacion {
 			this.getPokemons().remove(this.buscarPokemon(nombre));
 		}
 		catch (Exception e) {
-			throw new ArithmeticException("El pokemon ingresado no existe");
+			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
 		}
 	}
 	
@@ -129,33 +128,83 @@ public class Aplicacion {
 	}
 	
 	
-	public void evolucionarPokemon() {
+	public void evolucionarPokemon() throws Exception {
 		System.out.println("Ingrese el nombre del pokemon que desea evolucionar:");
 		String nombre = sc.next();
 		
 		try {
-		Pokemon pokemon = this.buscarPokemon(nombre);
+			Pokemon pokemon = this.buscarPokemon(nombre);
 		
-		
-			if (pokemon.getEvoluciones().isEmpty()) {
-				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).fst());
+			if (pokemon.getEvoluciones().size() < 2) {
+				if (pokemon.getEvoluciones().size() == 0) {
+					pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(0));
+				}
+				else {
+						pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(1));
+				}
 			}
 			else {
-				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).snd());
+				throw new Exception("El pokemon no puede evolucionar más");
 			}
-			
 		}
 		catch(Exception e) {
-			throw new ArithmeticException("El pokemon ingresado no existe");
+			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
 		}
 	}
+	
+
+//****************************************************************************//
+	
+	
 		
-	//	System.out.println("Desea evolucionar el pokemon? (si / no)");
-	//	this.evolucionarPokemon(pokemon);
-	//	System.out.println("evolucion:"+pokemon.getEvoluciones().get(0));
-		//pokemonsAEncontrar.add(pokemon);
+	public String insertarNombre() {
+			System.out.println("Nombre:");
+			String nombre = sc.next();
+			return nombre;
+	}
+	
+	public Integer insertarNivel() {
+		try {
+			System.out.println("nivel:");
+			Integer nivel = sc.nextInt();
+			return nivel;
+		}
+		catch(Exception e) {
+			throw new InputMismatchException("el nivel ingresado debe ser un valor numerico");
+		}	
+	}
+	
+	public List<String> insertarTipo() {
+//		try {
+			List<String> tipos = new ArrayList<String>();
+			Integer opcion = 1;
+			String tipo;
+			while (opcion == 1) {
+				System.out.println("Tipo:");
+				tipo = sc.next();
+				tipos.add(tipo);
+				System.out.println("Si desea agregar otro tipo presione 1, sino presione 2:");
+				opcion = sc.nextInt();
+			}
+			return tipos;
+//		}
+//		catch(Exception e) {
+//			throw new ArithmeticException("El tipo ingresado es invalido");
+//		}
+	}
+
+	
+	public Evolucion insertarEvolucion() {
+		String nombreEvolucion = this.insertarNombre();
+		Integer nivelEvolucion = this.insertarNivel();
+
+		Evolucion evolucion = new Evolucion(nombreEvolucion, nivelEvolucion);
 		
+		evolucion.setTipos(this.insertarTipo());
 		
+		return evolucion;
+	}
+	
 
 	public Boolean existePokemon(String nombre) {
 		Boolean existePokemon = false;
@@ -178,13 +227,18 @@ public class Aplicacion {
 		return pokemon.toString();
 	}
 	
-	public Boolean existePokemon2(Pokemon pokemon) {
-		return this.getPokemonsYEvoluciones().containsKey(pokemon);
+	public Boolean existePokemonConEvoluciones(String nombre) {
+		List<Pokemon> pokemons = new ArrayList<Pokemon>(this.getPokemonsYEvoluciones().keySet());
+		Boolean existePokemon = false;
+		for (Pokemon p : pokemons) {
+			existePokemon = existePokemon || p.getNombre().equals(nombre);
+		}
+		return existePokemon;
 	}
 	
 	
 	
-	public Pokemon buscarPokemon2(Pokemon pokemon) {
+	public Pokemon buscarPokemonConEvoluciones(Pokemon pokemon) {
 		List<Pokemon> pokemons = new ArrayList<Pokemon>(this.getPokemonsYEvoluciones().keySet());
 		Integer i = 0;
 		while(!(pokemons.get(i).equals(pokemon))) {
@@ -193,12 +247,21 @@ public class Aplicacion {
 		return pokemons.get(i);
 	}
 	
-	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
-		List<Evolucion> evoluciones = new ArrayList<Evolucion>();;
+/*	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
+		List<Evolucion> evoluciones = new ArrayList<Evolucion>();
 		for (Map.Entry<Pokemon, ArrayList<Evolucion>> entry : this.getPokemonsYEvoluciones().entrySet()) {
 			if(entry.getKey().equals(pokemon)) {
-				evoluciones.add(entry.getValue().get(0));
-				evoluciones.add(entry.getValue().get(1));
+				evoluciones.addAll(entry.getValue());
+			}
+		}
+		return evoluciones;
+	}*/
+	
+	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
+		List<Evolucion> evoluciones = new ArrayList<Evolucion>();
+		for (Map.Entry<Pokemon, ArrayList<Evolucion>> entry : this.getPokemonsYEvoluciones().entrySet()) {
+			if(entry.getKey().getNombre().equals(pokemon.getNombre())) {
+				evoluciones.addAll(entry.getValue());
 			}
 		}
 		return evoluciones;
