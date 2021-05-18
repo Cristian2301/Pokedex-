@@ -72,12 +72,22 @@ public class Pokemon {
 		this.habilidades = habilidades;
 	}
 	
+	public String listarEvoluciones() {
+		StringBuilder datos = new StringBuilder();
+		for (Evolucion e : this.getEvoluciones()) {
+			datos.append("\n");
+			datos.append(e.toString());
+		}
+		return (datos.toString().equals(""))?"El pokemon aún no ha evolucionado":datos.toString();
+	}
+	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
+		str.append("----------------------------------------------------------------------------------------------------------\n");
 		str.append("*POKEMON " + getNombre().toUpperCase()+"*\n");
 		str.append("Tipos:" + getTipos()+"\n");
 		str.append("Nivel:" + getNivel()+"\n");
-		str.append("Evoluciones:" + getEvoluciones()+"\n");
+		str.append("\nEvoluciones: " + listarEvoluciones()+"\n");
 		str.append("Habilidades:" + getHabilidades()+"\n");
 		return str.toString();
 	}

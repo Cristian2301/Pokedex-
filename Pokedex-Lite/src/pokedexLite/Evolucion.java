@@ -35,4 +35,12 @@ public class Evolucion {
 	public Integer getNivel() {
 		return nivel;
 	}
+	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("*EVOLUCION " + getNombre().toUpperCase()+"*\n");
+		str.append("Tipos:" + getTipos()+"\n");
+		str.append("Nivel:" + getNivel()+"\n");
+		return str.toString();
+	}
 }
