@@ -2,6 +2,7 @@ package pokedexLite;
 
 import java.util.List;
 
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -32,28 +33,62 @@ public class Aplicacion {
 	
 	
 	public String mostrarPokemon() {
-		System.out.println("Ingrese el nombre del pokemon que desea que se muestre:");
-		String nombrePokemon = sc.next();
+		Boolean pokemonEsValido;
+		String datosPokemon = "";
 		
-		try {
-			return this.datosPokemon(this.buscarPokemon(nombrePokemon));
-		}
-		catch (Exception e) {
-			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
-		}
+		do {
+			System.out.println("Ingrese el nombre del pokemon que desea que se muestre:");
+			String nombrePokemon = sc.next();
+			
+			try {
+				datosPokemon = this.datosPokemon(this.buscarPokemon(nombrePokemon));
+				pokemonEsValido = false;
+			}
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("El pokemon ingresado no existe");
+				pokemonEsValido = true;
+			} 
+		} while(pokemonEsValido);
+		
+		return datosPokemon;
 	}
-	
+	//("El pokemon ingresado no existe"); //generar excepcion que mande mensaje por consola
+	// usar finally / como hacer rollback en excepcion
 	
 	public void agregarPokemon() throws Exception {	
-		System.out.println("Ingrese los datos del pokemon que desea agregar:");
+		String nombrePokemon = "";
+		Boolean pokemonExistente;
+		Integer nivelPokemon = 0;
 		
-		String nombrePokemon = this.insertarNombre();
+		do {
+			System.out.println("Ingrese los datos del pokemon que desea agregar:");
+			
+			try {
+				nombrePokemon = this.insertarNombre();
+				
+				if (this.existePokemon(nombrePokemon)) {
+					throw new Exception();
+				}
+				pokemonExistente = false;
+			}
+			catch(Exception e) {
+				System.out.println("El pokemon ingresado ya existe");
+				pokemonExistente = true;
+			}
+		} while(pokemonExistente);
 		
-		if (this.existePokemon(nombrePokemon)) {
-			throw new Exception("El pokemon ingresado ya existe");
-		}
+		Boolean nivelNoNumerico = false;
+		do {
+			try {
+				nivelPokemon = this.insertarNivel();
+				nivelNoNumerico = false;
+			}
+			catch(InputMismatchException e) {
+				System.out.println("el nivel ingresado debe ser un valor numerico");
+				nivelNoNumerico = true;
+			}
+		} while(nivelNoNumerico);
 		
-		Integer nivelPokemon = this.insertarNivel();
 		
 		Pokemon pokemon = new Pokemon(nombrePokemon, nivelPokemon);
 		
@@ -76,18 +111,25 @@ public class Aplicacion {
 	
 		
 	public void modificarPokemon() throws Exception {
-		System.out.println("Ingrese el nombre del pokemon que desea modificar:");
-		String nombre = sc.next();
-		Pokemon pokemon;
-		
-		try {
-			pokemon = this.buscarPokemon(nombre);
-		}
-		catch (Exception e) {
-			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
-		}
-		
+		Pokemon pokemon = null;
+		Boolean pokemonNoExiste;
 		Boolean modificandoPokemon = true;
+		
+		do {
+			System.out.println("Ingrese el nombre del pokemon que desea modificar:");
+			String nombre = sc.next();
+			
+			try {
+				pokemon = this.buscarPokemon(nombre);
+				pokemonNoExiste = false;
+			}
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("El pokemon ingresado no existe");
+				pokemonNoExiste = true;
+			}
+		} while(pokemonNoExiste);
+		
+		
 		while (modificandoPokemon) {
 			System.out.println(" ¿Que dato del pokemon desea modificar? (Ingrese: Nivel/Tipos/Evoluciones/Habilidades) \n Si no desea modificar ningún dato ingrese 'Salir':");
 			String opcion = sc.next();
@@ -121,15 +163,20 @@ public class Aplicacion {
 	
 	
 	public void eliminarPokemon() {
-		System.out.println("Ingrese el nombre del pokemon que desea eliminar:");
-		String nombre = sc.next();
-		
-		try {
-			this.getPokemons().remove(this.buscarPokemon(nombre));
-		}
-		catch (Exception e) {
-			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
-		}
+		Boolean pokemonNoExiste;
+		do {
+			System.out.println("Ingrese el nombre del pokemon que desea eliminar:");
+			String nombre = sc.next();
+			
+			try {
+				this.getPokemons().remove(this.buscarPokemon(nombre));
+				pokemonNoExiste = false;
+			}
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("El pokemon ingresado no existe");
+				pokemonNoExiste = true;
+			}
+		} while(pokemonNoExiste);
 	}
 	
 	
@@ -142,34 +189,44 @@ public class Aplicacion {
 	}
 	
 	
-	public void evolucionarPokemon() throws Exception {
-		System.out.println("Ingrese el nombre del pokemon que desea evolucionar:");
-		String nombre = sc.next();
-		Pokemon pokemon;
-		
-		try {
-			pokemon = this.buscarPokemon(nombre);
-		}
-		catch(Exception e) {
-			throw new IndexOutOfBoundsException("El pokemon ingresado no existe");
-		}
-				
-		if (pokemon.getEvoluciones().size() < 2) {
-			if (pokemon.getEvoluciones().size() == 0) {
-				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(0));
+	//TODO: HACER QUE LA EXCEPTION DE QUE NO PUEDE EVOLUCIONAR MAS, CUANDO HAGA EL ROLLBACK ME TIRE PARA LA LISTA DE OPCIONES
+	//DEL MENU 
+	public void evolucionarPokemon() {
+		Boolean pokemonB = null;
+		do { 
+			System.out.println("Ingrese el nombre del pokemon que desea evolucionar:");
+			String nombre = sc.next();
+			Pokemon pokemon;
+			
+			try {
+				pokemon = this.buscarPokemon(nombre);
+			
+				if (pokemon.getEvoluciones().size() < 2) {
+					if (pokemon.getEvoluciones().size() == 0) {
+						pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(0));
+					}
+					else {
+						pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(1));
+					}
+				}
+				else {
+					throw new Exception();
+				}
+				pokemonB = false;
 			}
-			else {
-				pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(1));
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("El pokemon ingresado no existe");
+				pokemonB = true;
 			}
-		}
-		else {
-			throw new Exception("El pokemon " + nombre + " no puede evolucionar más");
-		}
+			catch(Exception e) {
+				System.out.println("El pokemon " + nombre + " no puede evolucionar más");
+				pokemonB = true;
+			}
+		} while(pokemonB);
 	}
 	
 	
 	public void eliminarEvolucion(Pokemon pokemon) throws Exception {
-		
 		if (!pokemon.getEvoluciones().isEmpty()) {
 			if (pokemon.getEvoluciones().size() == 2) {
 				pokemon.getEvoluciones().remove(1);
@@ -193,16 +250,26 @@ public class Aplicacion {
 			return nombre;
 	}
 	
+	
+	//TODO: ESTA TIRANDO ERROR: SE QUEDA LOOPEANDO EN EL nivel = sc.nextInt();
 	public Integer insertarNivel() {
-		try {
-			System.out.println("nivel:");
-			Integer nivel = sc.nextInt();
-			return nivel;
-		}
-		catch(Exception e) {
-			throw new InputMismatchException("el nivel ingresado debe ser un valor numerico");
-		}	
-	}
+		Integer nivel1 = 0;
+		Boolean nivelNoEsNumerico = false;
+		do {
+			try {
+				System.out.println("nivel:");
+				Integer nivel = sc.nextInt();
+				nivel1 = nivel;
+				nivelNoEsNumerico = false;
+			}
+			catch(InputMismatchException e) {
+				System.out.println("el nivel ingresado debe ser un valor numerico");
+				nivelNoEsNumerico = true;
+			}
+		} while(nivelNoEsNumerico);
+		
+		return nivel1;
+	} 
 	
 	public List<String> insertarTipo() {
 //		try {

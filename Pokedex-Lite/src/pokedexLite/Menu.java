@@ -48,14 +48,18 @@ public class Menu {
 		evolucionesChik.add(evolucion1Chikorita);
 		evolucionesChik.add(evolucion2Chikorita);
 		
+		aplicacion.getPokemonsYEvoluciones().put(pokemon1, evolucionesChar);
+		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
+		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
+		
 /*		aplicacion.getPokemonsYEvoluciones().put(pokemon1, (ArrayList<Evolucion>) Arrays.asList(evolucion1Charmander, evolucion2Charmander));
 		aplicacion.getPokemonsYEvoluciones().put(pokemon2, (ArrayList<Evolucion>) Arrays.asList(evolucion1Squirtle, evolucion2Squirtle));
 		aplicacion.getPokemonsYEvoluciones().put(pokemon3, (ArrayList<Evolucion>) Arrays.asList(evolucion1Bulbasaur, evolucion2Bulbasaur));
 		aplicacion.getPokemonsYEvoluciones().put(pokemon4, (ArrayList<Evolucion>) Arrays.asList(evolucion1Chikorita, evolucion2Chikorita));
 		aplicacion.getPokemonsYEvoluciones().put(pokemon5, (ArrayList<Evolucion>) Arrays.asList(evolucion1Cyndaquil, evolucion2Cyndaquil));*/		
 	
-		aplicacion.getPokemonsYEvoluciones().put(pokemon1, evolucionesChar);
-		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
+		
+		
 		
 		Integer opcion;
 		List<Integer> opcionesValidas = Arrays.asList(1,2,3,4,5,6,7);
