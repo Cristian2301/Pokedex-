@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class Evolucion {
 	private String nombre;
-	private List<String> tipos;
+	private List<Tipo> tipos;
 	private Integer nivel;
 	
 	/*Constructor*/
 	public Evolucion(String nombre, Integer nivel) {
 		this.nombre = nombre;
-		this.tipos = new ArrayList<String>();
+		this.tipos = new ArrayList<Tipo>();
 		this.nivel = nivel;
 	}
 	
@@ -19,18 +19,18 @@ public class Evolucion {
 		return nombre;
 	}
 	
-	public List<String> getTipos() {
+	public List<Tipo> getTipos() {
 		return tipos;
 	}
 	
-	public void setTipos(List<String> tipos) {
-		this.tipos = tipos;
-	}
+//	public void setTipos(Tipo tipos) {
+//		this.tipos = tipos;
+//	}
 	
-	public void agregarTipo(String tipo) {
+//	public void agregarTipo(String tipo) {
 		/*agrega el tipo "tipo" a la lista de tipos.*/
-			this.tipos.add(tipo);
-		}
+//			this.tipos.add(tipo);
+//		}
 	
 	public Integer getNivel() {
 		return nivel;

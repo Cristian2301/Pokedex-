@@ -5,19 +5,19 @@ import java.util.ArrayList;
 
 public class Pokemon {
 	private String nombre;
-	private List<String> tipos;
+	private List<Tipo> tipos;
 	private Integer nivel;
-	private List<Habilidad> habilidades;
+	private List<Habilidad1> habilidades;
 	private List<Evolucion> evoluciones;
 	
 	/*Constructor*/
 	public Pokemon(String nombre, Integer nivel) {
 		//this.id = id;
 		this.nombre = nombre;
-		this.tipos = new ArrayList<String>();
+		this.tipos = new ArrayList<Tipo>();
 		this.nivel = nivel;
 		this.evoluciones = new ArrayList<Evolucion>();
-		this.habilidades = new ArrayList<Habilidad>();
+		this.habilidades = new ArrayList<Habilidad1>();
 	}
 	
 	
@@ -29,23 +29,23 @@ public class Pokemon {
 		this.nombre = nombre;
 	}
 	
-	public List<String> getTipos() {
+	public List<Tipo> getTipos() {
 		return tipos;
 	}
 	
-	public void setTipos(List<String> tipos) {
-		this.tipos = tipos;
-	}
+//	public void setTipo(Tipo tipo) {
+//		this.tipo = tipo;
+//	}
 	
-	public void agregarTipo(String tipo) {
+	public void agregarTipo(Tipo tipo) {
 	/*agrega el tipo "tipo" a la lista de tipos.*/
 		this.tipos.add(tipo);
 	}
 	
-	public void eliminarTipo(String tipo) {
+//	public void eliminarTipo(String tipo) {
 	/*elimina el tipo "tipo" de la lista de tipos.*/
-		this.tipos.remove(tipo);
-	}
+//		this.tipos.remove(tipo);
+//	}
 	
 	public Integer getNivel() {
 		return nivel;
@@ -64,11 +64,11 @@ public class Pokemon {
 		this.evoluciones.add(evolucion);
 	}
 	
-	public List<Habilidad> getHabilidades() {
+	public List<Habilidad1> getHabilidades() {
 		return habilidades;
 	}
 	
-	public void setHabilidades(List<Habilidad> habilidades) {
+	public void setHabilidades(List<Habilidad1> habilidades) {
 		this.habilidades = habilidades;
 	}
 	
