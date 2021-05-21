@@ -66,25 +66,25 @@ class PokedexTest {
 		aplicacion = new Aplicacion();
 		
 		/* testPokemonsListados */
-		aplicacion.agregarPokemon(pokemon1);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon1);
-		aplicacion.agregarPokemon(pokemon2);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon2);
-		aplicacion.agregarPokemon(pokemon3);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon3);
-		aplicacion.agregarPokemon(pokemon4);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon4);
-		aplicacion.agregarPokemon(pokemon5);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon5);
-		aplicacion.agregarPokemon(pokemon6);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon6);
-		aplicacion.agregarPokemon(pokemon7);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon7);
-		aplicacion.agregarPokemon(pokemon8);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon8);
-		aplicacion.agregarPokemon(pokemon9);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon9);
-		aplicacion.agregarPokemon(pokemon10);
+		aplicacion.agregarPokemon();
 		pokemons.add(pokemon10);
 		
 		/* testNombreTiposYNivel - testActualizaInformacionPokemon */

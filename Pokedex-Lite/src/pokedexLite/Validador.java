@@ -1,5 +1,7 @@
 package pokedexLite;
 
+import java.util.List;
+
 public class Validador {
 	
 	public void validarPokemonEvolucionado(Pokemon pokemon) throws PokemonNoEvolucionaMasExcepcion {
@@ -13,5 +15,13 @@ public class Validador {
 	
 	public void validarPokemonNoEvolucionado(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {
 		if (pokemon.getEvoluciones().isEmpty()) throw new PokemonNoEvolucionadoExcepcion();
+	}
+	
+	public void validarOpciones(List<Integer> opciones, Integer opcion) throws OpcionNoValidaExcepcion {
+		if (!opciones.contains(opcion)) throw new OpcionNoValidaExcepcion();
+	}
+	
+	public void validarTipos(String tipo, List<String> tipos) throws TipoNoValidoExcepcion {
+		if(!tipos.contains(tipo)) throw new TipoNoValidoExcepcion();	
 	}
 }

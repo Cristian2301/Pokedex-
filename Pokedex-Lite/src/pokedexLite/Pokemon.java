@@ -7,7 +7,7 @@ public class Pokemon {
 	private String nombre;
 	private List<Tipo> tipos;
 	private Integer nivel;
-	private List<Habilidad1> habilidades;
+	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 	
 	/*Constructor*/
@@ -17,7 +17,7 @@ public class Pokemon {
 		this.tipos = new ArrayList<Tipo>();
 		this.nivel = nivel;
 		this.evoluciones = new ArrayList<Evolucion>();
-		this.habilidades = new ArrayList<Habilidad1>();
+		this.habilidades = new ArrayList<Habilidad>();
 	}
 	
 	
@@ -33,9 +33,9 @@ public class Pokemon {
 		return tipos;
 	}
 	
-//	public void setTipo(Tipo tipo) {
-//		this.tipo = tipo;
-//	}
+	public void setTipos(List<Tipo> tipos) {
+		this.tipos = tipos;
+	}
 	
 	public void agregarTipo(Tipo tipo) {
 	/*agrega el tipo "tipo" a la lista de tipos.*/
@@ -64,11 +64,11 @@ public class Pokemon {
 		this.evoluciones.add(evolucion);
 	}
 	
-	public List<Habilidad1> getHabilidades() {
+	public List<Habilidad> getHabilidades() {
 		return habilidades;
 	}
 	
-	public void setHabilidades(List<Habilidad1> habilidades) {
+	public void setHabilidades(List<Habilidad> habilidades) {
 		this.habilidades = habilidades;
 	}
 	

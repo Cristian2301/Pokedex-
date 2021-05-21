@@ -1,5 +1,6 @@
 package pokedexLite;
 
 public enum Habilidad {
-	absorveAgua, absorveElectricidad, absorveFuego, aclimatacion, agallas, armaduraBatalla;
+	AbsorveFuego, MarLlamas, AbsorveAgua, BurbujaBubble, AbsorveRayosSol, DefensaHoja, ChorroDeArena, RocaAfilada, RemolinoWhirlwind, TornadoGust, VientoHielo, CantoHelado,
+	AlaDeAcero, BombaIman;
 }
